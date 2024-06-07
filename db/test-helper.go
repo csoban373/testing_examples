@@ -31,11 +31,11 @@ func SetupTestDB(t *testing.T) *gorm.DB {
 	return db
 }
 
-func WithinTransaction(t *testing.T, db *gorm.DB, run func(t *testing.T, tx *gorm.DB)) {
+func WithinTransaction(t *testing.T, db *gorm.DB, run func(tx *gorm.DB)) {
 	tx := db.Begin()
 	if tx.Error != nil {
 		t.Fatal("Failed to start transaction")
 	}
 	defer tx.Rollback()
-	run(t, tx)
+	run(tx)
 }

@@ -37,7 +37,7 @@ func TestGetPeople(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			testDb := db.SetupTestDB(t)
 			r := require.New(t)
-			db.WithinTransaction(t, testDb, func(t *testing.T, tx *gorm.DB) {
+			db.WithinTransaction(t, testDb, func(tx *gorm.DB) {
 				for _, v := range tt.seeds {
 					r.NoError(tx.Create(&v).Error)
 				}
